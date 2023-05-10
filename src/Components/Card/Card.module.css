@@ -1,0 +1,19 @@
+
+
+
+.card {
+
+    background-color: red;
+    padding: 5%;
+    margin-bottom: 30px;
+}
+
+.cardInner {
+    border: 5px solid black;
+}
+
+.cardInner > h1 {
+
+    color: yellow;
+
+}
