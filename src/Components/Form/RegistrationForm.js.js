@@ -31,7 +31,7 @@ const RegistrationForm = () => {
     } catch (error) {
       // Registration failed
       console.error('Registration failed', error);
-      // Handle the error appropriately
+      // Handle the error appropriately hello
     }
   };
 
