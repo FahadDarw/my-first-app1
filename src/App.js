@@ -7,6 +7,7 @@ import OrderedList from './Components/Lists/OrderedList'
 import { Col, Container, Row } from 'react-bootstrap'
 import Navbar from './Components/Navbar/Navbar'
 import Card from './Components/Card/Card'
+import RegistrationForm  from './Components/Form/RegistrationForm.js'
 
 function App() {
 	const devSkillsList = [
@@ -109,11 +110,13 @@ function App() {
 				<Row>
 					<Col>
 						<Navbar />
+
 					</Col>
 				</Row>
 			</Container>
 
 			<Header />
+			<RegistrationForm />
 
 			<Row>
 			{players.map((player,index) => (

@@ -36,7 +36,7 @@ const Card = props => {
 			<div className={styles.card}>
 				<div className={styles.cardInner}>
 				<div style={{ height: '250px', alignItems: 'center', display: 'flex', justifyContent: 'center'}}>
-					<h1>Back compnent F*** liverpool</h1>
+					<h1>Back compnent </h1>
 					</div>
 				</div>
 				<button onClick={handleClick}>Click to flip</button>
