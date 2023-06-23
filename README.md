@@ -7,6 +7,7 @@ This is my first React project with Cypress . I'm excited to learn more about Re
 
 - React
 - Cypress
+- NPM
 
 ## Getting Started
 
@@ -16,3 +17,4 @@ To get started, clone this repository and install the dependencies:
 git clone <repository-url>
 cd my-react-app
 npm install
+

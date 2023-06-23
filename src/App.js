@@ -7,7 +7,13 @@ import OrderedList from './Components/Lists/OrderedList'
 import { Col, Container, Row } from 'react-bootstrap'
 import Navbar from './Components/Navbar/Navbar'
 import Card from './Components/Card/Card'
-import RegistrationForm  from './Components/Form/RegistrationForm.js'
+import RegistrationForm  from './Components/Forms/RegistrationForm.js.js'
+import SignInForm from './Components/Forms/SignInForm'
+import React, { useState, useEffect } from 'react'
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+
+
 
 function App() {
 	const devSkillsList = [
@@ -104,12 +110,33 @@ function App() {
 		},
 	]
 
+	const firebaseConfig = {
+		apiKey: 'AIzaSyDDjkUoY5LcMclTyJ55RWGatOwOeHMGRxw',
+		authDomain: 'myproject-90db1.firebaseapp.com',
+		databaseURL: 'https://myproject-90db1-default-rtdb.firebaseio.com',
+		projectId: 'myproject-90db1',
+		storageBucket: 'myproject-90db1.appspot.com',
+		messagingSenderId: '1090188054113',
+		appId: '1:1090188054113:web:e9979b345e91555fb6a420',
+		measurementId: 'G-Q5L7E07JEW',
+	}
+	
+	firebase.initializeApp(firebaseConfig);
+	const auth = firebase.auth();
+	const [loggedInUser, setLoggedInUser] = useState("");
+
+const setUser = (email) => {
+setLoggedInUser(email);
+};
+
+
+
 	return (
 		<div className="App">
 			<Container fluid>
 				<Row>
 					<Col>
-						<Navbar />
+						<Navbar loggedInUser={loggedInUser} />
 
 					</Col>
 				</Row>
@@ -117,6 +144,8 @@ function App() {
 
 			<Header />
 			<RegistrationForm />
+			<br />
+			<SignInForm setUser={setUser} />
 
 			<Row>
 			{players.map((player,index) => (

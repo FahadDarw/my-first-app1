@@ -6,8 +6,8 @@ import style from "./Navbar.module.css";
 
 
 
-const MyNavbar = () => {
-
+const MyNavbar = (props) => {
+console.log(props.loggedInUser);
     return (
         <Navbar bg="light" expand="lg">
         <Container>
@@ -28,6 +28,7 @@ const MyNavbar = () => {
                   Separated link
                 </NavDropdown.Item>
               </NavDropdown>
+              <p>Logged in user is: {props.loggedInUser}</p> 
             </Nav>
           </Navbar.Collapse>
         </Container>
