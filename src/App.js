@@ -7,13 +7,15 @@ import OrderedList from './Components/Lists/OrderedList'
 import { Col, Container, Row } from 'react-bootstrap'
 import Navbar from './Components/Navbar/Navbar'
 import Card from './Components/Card/Card'
-import RegistrationForm  from './Components/Forms/RegistrationForm.js.js'
+import RegistrationForm from './Components/Forms/RegistrationForm.js.js'
 import SignInForm from './Components/Forms/SignInForm'
 import React, { useState, useEffect } from 'react'
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-
-
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/auth'
+import Players from './Pages/Players'
+import Home from './Pages/Home'
+import Results from './Pages/Results'
+import { getDatabase, ref, onValue } from 'firebase/database'
 
 function App() {
 	const devSkillsList = [
@@ -95,6 +97,40 @@ function App() {
 		},
 	]
 
+	const [listOfPlayers, setListOfPlayers] = useState({})
+
+	const firebaseConfig = {
+		apiKey: 'AIzaSyDDjkUoY5LcMclTyJ55RWGatOwOeHMGRxw',
+		authDomain: 'myproject-90db1.firebaseapp.com',
+		databaseURL: 'https://myproject-90db1-default-rtdb.firebaseio.com',
+		projectId: 'myproject-90db1',
+		storageBucket: 'myproject-90db1.appspot.com',
+		messagingSenderId: '1090188054113',
+		appId: '1:1090188054113:web:e9979b345e91555fb6a420',
+		measurementId: 'G-Q5L7E07JEW',
+	}
+
+	firebase.initializeApp(firebaseConfig)
+	const auth = firebase.auth()
+	const [loggedInUser, setLoggedInUser] = useState('')
+
+	const setUser = email => {
+		setLoggedInUser(email)
+	}
+
+	const db = getDatabase()
+	const playerRef = ref(db, 'player')
+	onValue(playerRef, snapshot => {
+		const data = snapshot.val()
+		console.log(data)
+		setListOfPlayers(data)
+		
+	})
+
+	useEffect(() => {
+		console.log(listOfPlayers); 
+	  }, [listOfPlayers]);
+
 	const players = [
 		{
 			url: 'https://images2.minutemediacdn.com/image/fetch/w_2000,h_2000,c_fit/https://thetopflight.com/wp-content/uploads/getty-images/2017/07/168612384.jpeg',
@@ -110,34 +146,24 @@ function App() {
 		},
 	]
 
-	const firebaseConfig = {
-		apiKey: 'AIzaSyDDjkUoY5LcMclTyJ55RWGatOwOeHMGRxw',
-		authDomain: 'myproject-90db1.firebaseapp.com',
-		databaseURL: 'https://myproject-90db1-default-rtdb.firebaseio.com',
-		projectId: 'myproject-90db1',
-		storageBucket: 'myproject-90db1.appspot.com',
-		messagingSenderId: '1090188054113',
-		appId: '1:1090188054113:web:e9979b345e91555fb6a420',
-		measurementId: 'G-Q5L7E07JEW',
-	}
-	
-	firebase.initializeApp(firebaseConfig);
-	const auth = firebase.auth();
-	const [loggedInUser, setLoggedInUser] = useState("");
-
-const setUser = (email) => {
-setLoggedInUser(email);
-};
-
-
-
 	return (
 		<div className="App">
 			<Container fluid>
 				<Row>
 					<Col>
 						<Navbar loggedInUser={loggedInUser} />
+					</Col>
 
+					<Col>
+						<Home />
+					</Col>
+
+					<Col>
+						<Players />
+					</Col>
+
+					<Col>
+						<Results />
 					</Col>
 				</Row>
 			</Container>
@@ -148,14 +174,12 @@ setLoggedInUser(email);
 			<SignInForm setUser={setUser} />
 
 			<Row>
-			{players.map((player,index) => (
-				<Col index={index}>
-				<Card player={player}  />
-				</Col>
-			))}
+				{players.map((player, index) => (
+					<Col index={index}>
+						<Card player={player} />
+					</Col>
+				))}
 			</Row>
-
-			
 
 			<Status devSkillsList={devSkillsList} toDoList={toDoList} />
 			<OrderedList devSkillsList={devSkillsList} toDoList={toDoList} />
